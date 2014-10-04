@@ -127,7 +127,7 @@
             // than ours
             var current = $order.val();
             var $nextOrder = null;
-            _this.$forms().each(function(i, form) {
+            _this.$activeForms().each(function(i, form) {
                 var $o = $(form).find('[name*=ORDER]');
                 var order = parseInt($o.val());
                 if(order < current && ($nextOrder == null || order > parseInt($nextOrder.val()))) {
@@ -152,7 +152,7 @@
             // than ours
             var current = $order.val();
             var $nextOrder = null;
-            _this.$forms().each(function(i, form) {
+            _this.$activeForms().each(function(i, form) {
                 var $o = $(form).find('[name*=ORDER]');
                 var order = parseInt($o.val());
                 if (order > current && ($nextOrder == null || order < parseInt($nextOrder.val()))) {
@@ -198,7 +198,7 @@
             var b = parseInt($(form_b).find('[name*=-ORDER]').val());
             return (a < b ? -1 : (a > b ? 1 : 0));
         }
-        var $forms = this.$forms().sort(compareForms);
+        var $forms = this.$activeForms().sort(compareForms);
 
         if (this.opts.reorderMode == 'dom') {
             $forms.reverse().each(function(i, form) {
@@ -211,7 +211,7 @@
             // Setup the CSS
             if (this.$body.css("position") != "relative") {
                 this.$body.css("position", "relative");
-                this.$forms().each(function(i, form) {
+                this.$activeForms().each(function(i, form) {
                     $(form).css("position", "absolute");
                     $(form).css("top", accumulatedHeight + "px");
                     accumulatedHeight += $(form).outerHeight(true);
@@ -245,6 +245,11 @@
     Formset.prototype.$forms = function() {
         return this.$body.find(this.opts.form);
     };
+
+    Formset.prototype.$activeForms = function() {
+        return this.$body.find(this.opts.form).not("[data-formset-form-deleted]");
+    };
+
     Formset.prototype.$managementForm = function(name) {
         return this.$formset.find('[name=' + this.formsetPrefix + '-' + name + ']');
     };
