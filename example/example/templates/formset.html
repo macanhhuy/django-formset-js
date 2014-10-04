@@ -20,6 +20,8 @@
             {% for form in formset %}
                 <div data-formset-form>
                     {{ form }}
+                    <button type="button" data-formset-move-up-button>Up</button>
+                    <button type="button" data-formset-move-down-button>Down</button>
                     <button type="button" data-formset-delete-button>Delete form</button>
                 </div>
             {% endfor %}
@@ -32,6 +34,8 @@
             {% escapescript %}
                 <div data-formset-form>
                     {{ formset.empty_form }}
+                    <button type="button" data-formset-move-up-button>Up</button>
+                    <button type="button" data-formset-move-down-button>Down</button>
                     <button type="button" data-formset-delete-button>Delete form</button>
                 </div>
             {% endescapescript %}
@@ -41,7 +45,10 @@
         <input type="button" value="Add another" data-formset-add>
 
         <script>jQuery(function($) {
-            $("#formset").formset();
+            $("#formset").formset({
+                'animateForms': true,
+                'reorderMode': 'animate',
+            });
         });</script>
 
     </div>
