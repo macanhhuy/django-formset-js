@@ -279,6 +279,7 @@
             this.$formset.removeClass(this.opts.hasMaxFormsClass);
             this.$add.removeAttr('disabled');
         }
+        return false;
     };
 
     Formset.prototype.animateForms = function() {
@@ -286,9 +287,11 @@
             var $form = $(this);
             $form.slideUp(0);
             $form.slideDown();
+            return false;
         }).on('formDeleted', this.opts.form, function() {
             var $form = $(this);
             $form.slideUp();
+            return false;
         });
         this.$forms().filter('[data-formset-form-deleted]').slideUp(0);
     };
